@@ -20,6 +20,14 @@ app.controller('PetController', function(PetFactory, $log, $scope) {
         sex: null,
         isMix: null
     };
+
+    $scope.fetchPup = function(prop) {
+        $scope.pets.forEach(pet => {
+            if (pet[prop] === $scope.fetch[prop]) {
+                pet.match++;
+            }
+        });
+    };
     
     PetFactory.getDogs()
     .then(pets => {
@@ -27,9 +35,6 @@ app.controller('PetController', function(PetFactory, $log, $scope) {
     })
     .catch($log.error);
     
-    PetFactory.getRandomPet()
-    .then(dog => $scope.dog = dog)
-    .catch($log.error);
 });
 
 app.factory('PetFactory', function($http) {
