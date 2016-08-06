@@ -1,18 +1,103 @@
 <section id="home">
-   <h1>Hi!</h1>
-   <div ng-repeat="pet in pets">
-     <p>Name: {{pet.name}}</p>
-     <p>Age: {{pet.age}}</p>
-      <p>has shots {{pet.hasShots}}</p>
-      <p>good cats {{pet.goodCats}}</p>
-      <p>altered {{pet.altered}}</p>
-      <p>housetrained {{pet.housetrained}}</p>
-      <p>special needs{{pet.specialNeeds}}</p>
-      <p>good dogs {{pet.goodDogs}}</p>
-      <p>good kids {{pet.goodKids}}</p>
-      <p>is mix {{pet.isMix}}</p>
-   </div>
-   <pre>
-     {{dog}}
-   </pre>
+    <div class="container">
+        <div class="col-md-12">
+            <div class="row">
+                <form name="dogForm" class="form-inline">
+                    <div class="form-group">
+                        <label for="gender">Gender</label>
+                        <select name="gender" ng-model="fetch.sex" id="gender" class="form-control">
+                            <option value="M">Male</option>
+                            <option value="F">Female</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="age">Age</label>
+                        <select name="age" id="age" ng-model="fetch.age" class="form-control">
+                            <option value="Baby">Baby</option>
+                            <option value="Young">Young</option>
+                            <option value="Adult">Adult</option>
+                            <option value="Senior">Senior</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="size">Size</label>
+                        <select name="size" id="size" ng-model="fetch.size" class="form-control">
+                            <option value="S">Small</option>
+                            <option value="M">Medium</option>
+                            <option value="L">Large</option>
+                            <option value="XL">Extra Large</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="breed">Breed</label>
+                        <select name="breed" id="breed" 
+                            ng-model="fetch.isMix"
+                            ng-options="o.v as o.n for o in [{ n: 'Purebred', v: false }, { n: 'Mix', v: true }]"
+                            class="form-control">
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="hasShots">Vaccinated</label>
+                        <select name="hasShots" id="hasShots" 
+                            ng-model="fetch.hasShots"
+                            ng-options="o.v as o.n for o in [{ n: 'Yes', v: true }, { n: 'No', v: false }]"
+                            class="form-control">
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="altered">Neutered or spayed</label>
+                        <select name="altered" id="altered" 
+                            ng-model="fetch.altered"
+                            ng-options="o.v as o.n for o in [{ n: 'Yes', v: true }, { n: 'No', v: false }]"
+                            class="form-control">
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="housetrained">Housetrained</label>
+                        <select name="housetrained" id="housetrained" 
+                            ng-model="fetch.housetrained"
+                            ng-options="o.v as o.n for o in [{ n: 'Yes', v: true }, { n: 'No', v: false }]"
+                            class="form-control">
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="goodCats">Good with cats</label>
+                        <select name="goodCats" id="goodCats" 
+                            ng-model="fetch.goodCats"
+                            ng-options="o.v as o.n for o in [{ n: 'Yes', v: true }, { n: 'No', v: false }]"
+                            class="form-control">
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="goodDogs">Good with dogs</label>
+                        <select name="goodDogs" id="goodDogs" 
+                            ng-model="fetch.goodDogs"
+                            ng-options="o.v as o.n for o in [{ n: 'Yes', v: true }, { n: 'No', v: false }]"
+                            class="form-control">
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="goodKids">Good with kids</label>
+                        <select name="goodKids" id="goodKids" 
+                            ng-model="fetch.goodKids"
+                            ng-options="o.v as o.n for o in [{ n: 'Yes', v: true }, { n: 'No', v: false }]"
+                            class="form-control">
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="specialNeeds">Special needs</label>
+                        <select name="specialNeeds" id="specialNeeds" 
+                            ng-model="fetch.specialNeeds"
+                            ng-options="o.v as o.n for o in [{ n: 'Yes', v: true }, { n: 'No', v: false }]"
+                            class="form-control">
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="row">
+                <div class="ball" ng-repeat="pet in pets">
+                </div>
+            </div>
+        </div>
+    </div>
 </section>

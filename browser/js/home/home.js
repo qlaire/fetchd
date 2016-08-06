@@ -7,6 +7,20 @@ app.config(function ($stateProvider) {
 });
 
 app.controller('PetController', function(PetFactory, $log, $scope) {
+    $scope.fetch = {
+        hasShots: null,
+        goodCats: null,
+        altered: null,
+        housetrained: null,
+        specialNeeds: null,
+        goodDogs: null,
+        goodKids: null,
+        age: null,
+        size: null, 
+        sex: null,
+        isMix: null
+    };
+    
     PetFactory.getDogs()
     .then(pets => {
        $scope.pets = pets;
@@ -61,12 +75,10 @@ app.factory('PetFactory', function($http) {
         }
         petObj.age = pet.age.$t;
         petObj.size = pet.size.$t;
-        petObj.breeds = Array.isArray(pet.breeds.breed) ? pet.breeds.breed.map(item => item.$t) : pet.breeds.breed.$t;
-        petObj.name = pet.name.$t;
         petObj.id = pet.id.$t;
         petObj.sex = pet.sex.$t;
-        petObj.description = pet.description.$t;
         petObj.isMix = pet.mix.$t === 'yes' ? true : false;
+        petObj.match = 0;
         return petObj;
     };
     petf.getRandomPet = function() {
