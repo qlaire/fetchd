@@ -21,12 +21,27 @@ app.controller('PetController', function(PetFactory, $log, $scope) {
         isMix: null
     };
 
+    let changeHist = {};
+
     $scope.fetchPup = function(prop) {
-        $scope.pets.forEach(pet => {
-            if (pet[prop] === $scope.fetch[prop]) {
-                pet.match++;
-            }
-        });
+        if (!changeHist[prop]) {
+           $scope.pets.forEach(pet => {
+               if (pet[prop] === $scope.fetch[prop]) {
+                   pet.match++;
+               }
+           });
+           changeHist[prop] = true;
+        } else {
+            $scope.pets.forEach(pet => {
+                if (pet[prop] === $scope.fetch[prop]) {
+                    pet.match++;
+                } else {
+                    if (pet.match > 0) {
+                        pet.match--;
+                    }
+                }
+            });
+        }
     };
     
     PetFactory.getDogs()
