@@ -1,4 +1,4 @@
-app.directive('ball', function() {
+app.directive('ball', function($state) {
   return {
     restrict: 'E',
     scope: {
@@ -14,6 +14,16 @@ app.directive('ball', function() {
           elem.css('width', newHeight + 'px');
         }
       });
+
+      scope.$watch('pet.best', function (newVal, oldVal) {
+        if (newVal) {
+          elem.addClass('wiggle-ball');
+        } else {
+          elem.removeClass('wiggle-ball');
+        }
+      });
+
+      
     }
   };
 });

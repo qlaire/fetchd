@@ -104,7 +104,7 @@
             </div>
             <div class="row">
                 <span ng-repeat="pet in pets">
-                    <ball pet="pet" style="height:30px;width:30px;"></ball>
+                    <ball ng-click="goToDog(pet.id)" pet="pet" style="height:30px;width:30px;"></ball>
                 </span>
             </div>
         </div>

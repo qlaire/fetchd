@@ -8,3 +8,12 @@ ball {
   float: left;
   margin-right: 10px;
 }
+
+@keyframes wiggle {
+  0% {transform: rotate(80deg);}
+  50% {transform: rotate(-80deg);}
+  100% {transform: rotate(80deg);}
+}
+.wiggle-ball {
+  animation: wiggle 2s infinite ease-in-out;
+}

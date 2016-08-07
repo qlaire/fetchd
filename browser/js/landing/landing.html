@@ -1,0 +1,19 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h1 class="text-center greeting">Ready to fetch your new furry friend?</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12 zip-form">
+        <form name="zipForm" class="form-inline" ng-submit="zipForm.$valid && fetchPets()" novalidate>
+          <div class="form-group">
+            <label for="zipcode" class="sr-only">Your zipcode</label>
+            <input type="text" id="zipcode" ng-model="zip" ng-pattern="/^(\d{5}(-\d{4})?|[A-Z]\d[A-Z] *\d[A-Z]\d)$/" class="form-control input-lg" placeholder="Your zipcode" required>
+            <button ng-disabled="zipForm.$invalid" class="btn btn-primary btn-lg">Fetch!</button>
+          </div>
+        </form>
+
+    </div>
+  </div>
+</div>

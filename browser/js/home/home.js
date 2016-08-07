@@ -1,12 +1,17 @@
 app.config(function ($stateProvider) {
     $stateProvider.state('home', {
-        url: '/',
+        url: '/results/:zip',
         templateUrl: 'js/home/home.html',
-        controller: 'PetController'
+        controller: 'PetController',
+        resolve: {
+            thePets: function (PetFactory, $stateParams) {
+                return PetFactory.getDogs($stateParams.zip);
+            }
+        }
     });
 });
 
-app.controller('PetController', function(PetFactory, $log, $scope) {
+app.controller('PetController', function(PetFactory, $log, $scope, $state, thePets) {
     $scope.fetch = {
         hasShots: null,
         goodCats: null,
@@ -42,13 +47,26 @@ app.controller('PetController', function(PetFactory, $log, $scope) {
                 }
             });
         }
+        let bestNum = 0;
+        $scope.pets.forEach(pet => {
+            if (pet.match > bestNum) {
+                bestNum = pet.match;
+            }
+        });
+        $scope.pets.forEach(pet => {
+            if (pet.match === bestNum) {
+                pet.best = true;
+            } else {
+                pet.best = false;
+            }
+        })
     };
-    
-    PetFactory.getDogs()
-    .then(pets => {
-       $scope.pets = pets;
-    })
-    .catch($log.error);
+
+    $scope.goToDog = function(id) {
+        $state.go('dog', {dogId: id});
+    };
+
+    $scope.pets = thePets;
     
 });
 
@@ -99,18 +117,31 @@ app.factory('PetFactory', function($http) {
         petObj.sex = pet.sex.$t;
         petObj.isMix = pet.mix.$t === 'yes' ? true : false;
         petObj.match = 0;
+        petObj.best = false;
         return petObj;
     };
+    let dogInfo = function(dog) {
+        let dogObj = {};
+        dogObj.age = dog.age.$t;
+        dogObj.size = dog.size.$t;
+        dogObj.sex = dog.sex.$t;
+        dogObj.breeds = Array.isArray(dog.breeds.breed) ? dog.breeds.breed.map(item => item.$t) : [dog.breeds.breed.$t];
+        dogObj.name = dog.name.$t;
+        dogObj.description = dog.description.$t;
+        dogObj.photo = dog.media ? dog.media.photos.photo[2].$t : 'http://www.yellowknifeford.com/static/img/core/no_image_available.jpg';
+        dogObj.shelterId = dog.shelterPetId.$t;
+        return dogObj;
+    }
     petf.getRandomPet = function() {
         return $http.jsonp(`http://api.petfinder.com/pet.getRandom?format=json&output=full&animal=dog&location=20121&key=${key}&callback=JSON_CALLBACK`)
         .then(res => res.data.petfinder);
     };
     petf.getDogById = function(id) {
         return $http.jsonp(`http://api.petfinder.com/pet.get?format=json&key=${key}&id=${id}&callback=JSON_CALLBACK`)
-        .then(res => res.data.petfinder);
+        .then(res => dogInfo(res.data.petfinder.pet));
     }
-    petf.getDogs = function() {
-        return $http.jsonp(`http://api.petfinder.com/pet.find?format=json&key=${key}&count=100&location=10008&animal=dog&callback=JSON_CALLBACK`)
+    petf.getDogs = function(zip) {
+        return $http.jsonp(`http://api.petfinder.com/pet.find?format=json&key=${key}&count=100&location=${zip}&animal=dog&callback=JSON_CALLBACK`)
         .then(res => {
             let pets = res.data.petfinder.pets.pet.map(parsePet);
             return pets;

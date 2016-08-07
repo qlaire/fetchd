@@ -1,0 +1,25 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h1>{{dog.name}}</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4">
+      <img ng-src="{{dog.photo}}" class="img-responsive">
+    </div>
+    <div class="col-md-8">
+      <ul class="list-unstyled">
+        <li><b>Age:</b> {{dog.age}}</li>
+        <li><b>Gender:</b> {{dog.sex}}</li>
+        <li><b>Breeds:</b> 
+            <ul>
+              <li ng-repeat="breed in dog.breeds">{{breed}}</li>
+            </ul>
+        </li>
+      </ul>
+      <h4>Description</h4>
+      <p>{{dog.description}}</p>
+    </div>
+  </div>
+</div>
