@@ -1,6 +1,10 @@
 ball {
   border-radius: 50%;
-  background-color: green;
-  display: inline-block;
+  background-image: url('/images/tennis-ball.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  display: block;
+  float: left;
   margin-right: 10px;
 }
