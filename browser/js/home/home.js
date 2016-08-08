@@ -130,6 +130,11 @@ app.factory('PetFactory', function($http) {
         dogObj.description = dog.description.$t;
         dogObj.photo = dog.media ? dog.media.photos.photo[2].$t : 'http://www.yellowknifeford.com/static/img/core/no_image_available.jpg';
         dogObj.shelterId = dog.shelterPetId.$t;
+        if (dog.contact) {
+            dogObj.contactName = dog.contact.name ? dog.contact.name.$t : null;
+            dogObj.contactPhone = dog.contact.phone ? dog.contact.phone.$t : null;
+            dogObj.contactEmail = dog.contact.email ? dog.contact.email.$t : null;
+        }
         return dogObj;
     }
     petf.getRandomPet = function() {
