@@ -1,18 +1,18 @@
 <section id="home">
     <div class="container">
         <div class="col-md-12">
-            <div class="row">
+            <div class="row fetch-form">
                 <form name="dogForm" class="form-inline">
                     <div class="form-group">
                         <label for="gender">Gender</label>
-                        <select name="gender" ng-model="fetch.sex" ng-change="fetchPup('sex')" id="gender" class="form-control">
+                        <select name="gender" ng-model="fetch.sex" ng-change="fetchPup('sex')" id="gender" class="form-control input-sm">
                             <option value="M">Male</option>
                             <option value="F">Female</option>
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="age">Age</label>
-                        <select name="age" id="age" ng-model="fetch.age" ng-change="fetchPup('age')" class="form-control">
+                        <select name="age" id="age" ng-model="fetch.age" ng-change="fetchPup('age')" class="form-control input-sm">
                             <option value="Baby">Baby</option>
                             <option value="Young">Young</option>
                             <option value="Adult">Adult</option>
@@ -21,7 +21,7 @@
                     </div>
                     <div class="form-group">
                         <label for="size">Size</label>
-                        <select name="size" id="size" ng-model="fetch.size" ng-change="fetchPup('size')" class="form-control">
+                        <select name="size" id="size" ng-model="fetch.size" ng-change="fetchPup('size')" class="form-control input-sm">
                             <option value="S">Small</option>
                             <option value="M">Medium</option>
                             <option value="L">Large</option>
@@ -34,7 +34,7 @@
                             ng-model="fetch.isMix"
                             ng-change="fetchPup('isMix')"
                             ng-options="o.v as o.n for o in [{ n: 'Purebred', v: false }, { n: 'Mix', v: true }]"
-                            class="form-control">
+                            class="form-control input-sm">
                         </select>
                     </div>
                     <div class="form-group">
@@ -43,7 +43,7 @@
                             ng-model="fetch.hasShots"
                             ng-change="fetchPup('hasShots')"
                             ng-options="o.v as o.n for o in [{ n: 'Yes', v: true }, { n: 'No', v: false }]"
-                            class="form-control">
+                            class="form-control input-sm">
                         </select>
                     </div>
                     <div class="form-group">
@@ -52,7 +52,7 @@
                             ng-model="fetch.altered"
                             ng-change="fetchPup('altered')"
                             ng-options="o.v as o.n for o in [{ n: 'Yes', v: true }, { n: 'No', v: false }]"
-                            class="form-control">
+                            class="form-control input-sm">
                         </select>
                     </div>
                     <div class="form-group">
@@ -61,7 +61,7 @@
                             ng-model="fetch.housetrained"
                             ng-change="fetchPup('housetrained')"
                             ng-options="o.v as o.n for o in [{ n: 'Yes', v: true }, { n: 'No', v: false }]"
-                            class="form-control">
+                            class="form-control input-sm">
                         </select>
                     </div>
                     <div class="form-group">
@@ -70,7 +70,7 @@
                             ng-model="fetch.goodCats"
                             ng-change="fetchPup('goodCats')"
                             ng-options="o.v as o.n for o in [{ n: 'Yes', v: true }, { n: 'No', v: false }]"
-                            class="form-control">
+                            class="form-control input-sm">
                         </select>
                     </div>
                     <div class="form-group">
@@ -79,7 +79,7 @@
                             ng-model="fetch.goodDogs"
                             ng-change="fetchPup('goodDogs')"
                             ng-options="o.v as o.n for o in [{ n: 'Yes', v: true }, { n: 'No', v: false }]"
-                            class="form-control">
+                            class="form-control input-sm">
                         </select>
                     </div>
                     <div class="form-group">
@@ -88,7 +88,7 @@
                             ng-model="fetch.goodKids"
                             ng-change="fetchPup('goodKids')"
                             ng-options="o.v as o.n for o in [{ n: 'Yes', v: true }, { n: 'No', v: false }]"
-                            class="form-control">
+                            class="form-control input-sm">
                         </select>
                     </div>
                     <div class="form-group">
@@ -97,7 +97,7 @@
                             ng-model="fetch.specialNeeds"
                             ng-change="fetchPup('specialNeeds')"
                             ng-options="o.v as o.n for o in [{ n: 'Yes', v: true }, { n: 'No', v: false }]"
-                            class="form-control">
+                            class="form-control input-sm">
                         </select>
                     </div>
                 </form>
