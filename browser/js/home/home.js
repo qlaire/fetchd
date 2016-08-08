@@ -11,7 +11,7 @@ app.config(function ($stateProvider) {
     });
 });
 
-app.controller('PetController', function(PetFactory, $log, $scope, $state, thePets) {
+app.controller('PetController', function(PetFactory, $log, $scope, $state, thePets) {    
     $scope.fetch = {
         hasShots: null,
         goodCats: null,
@@ -26,41 +26,73 @@ app.controller('PetController', function(PetFactory, $log, $scope, $state, thePe
         isMix: null
     };
 
+    let fetchContent = false; 
+
+    
+    
+
     let changeHist = {};
 
     $scope.fetchPup = function(prop) {
-        if (!changeHist[prop]) {
-           $scope.pets.forEach(pet => {
-               if (pet[prop] === $scope.fetch[prop]) {
-                   pet.match++;
-               }
-           });
-           changeHist[prop] = true;
-        } else {
+        console.log('running the function');
+        PetFactory.saveFetch($scope.fetch)
+        .catch($log.error);
+        PetFactory.getCurrentFetch()
+        .then(res => {
+            if (res.status === 204) {
+                return;
+            } else {
+                console.log(res.data);
+                $scope.fetch = res.data;
+            }
+            for (let key in $scope.fetch) {
+                console.log($scope.fetch[key]);
+                if ($scope.fetch[key] !== null) {
+                    console.log('there\'s something');
+                    fetchContent = true; 
+                }
+            }
+            if (!fetchContent) {
+                console.log('there\'s nothing');
+                return;
+            }
+
+            if (!changeHist[prop]) {
             $scope.pets.forEach(pet => {
                 if (pet[prop] === $scope.fetch[prop]) {
                     pet.match++;
-                } else {
-                    if (pet.match > 0) {
-                        pet.match--;
-                    }
                 }
             });
-        }
-        let bestNum = 0;
-        $scope.pets.forEach(pet => {
-            if (pet.match > bestNum) {
-                bestNum = pet.match;
-            }
-        });
-        $scope.pets.forEach(pet => {
-            if (pet.match === bestNum) {
-                pet.best = true;
+            changeHist[prop] = true;
             } else {
-                pet.best = false;
+                $scope.pets.forEach(pet => {
+                    if (pet[prop] === $scope.fetch[prop]) {
+                        pet.match++;
+                    } else {
+                        if (pet.match > 0) {
+                            pet.match--;
+                        }
+                    }
+                });
             }
+            let bestNum = 0;
+            $scope.pets.forEach(pet => {
+                if (pet.match > bestNum) {
+                    bestNum = pet.match;
+                }
+            });
+            $scope.pets.forEach(pet => {
+                if (pet.match === bestNum) {
+                    pet.best = true;
+                } else {
+                    pet.best = false;
+                }
+            });
         })
+        .catch($log.error);
     };
+
+    $scope.fetchPup();
 
     $scope.goToDog = function(id) {
         $state.go('dog', {dogId: id});
@@ -147,6 +179,16 @@ app.factory('PetFactory', function($http) {
             return pets;
         });
     };
+
+    petf.getCurrentFetch = function() {
+        return $http.get('/api/fetches/my-fetch')
+        .then(res => res);
+    }
+
+    petf.saveFetch = function (fetch) {
+        return $http.put('/api/fetches/my-fetch', fetch)
+        .then(res => res);
+    }
     
     return petf;
 });
